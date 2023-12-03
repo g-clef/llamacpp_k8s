@@ -8,7 +8,7 @@ URL = "http://localhost:8000/v1/completions"
 
 def make_arguments():
     params = {
-        "prompt":  "\n\n### Question: Can you write a Pytyhon program do download data from a URL and save it to a file?\n\n###",
+        "prompt":  "\n\n### Question: Can you write a Python program to download data from a URL and save it to a file?\n\n###",
         "stop": ["###"],
         "no_penalize_nl": True,
         "temp": 0.7,
