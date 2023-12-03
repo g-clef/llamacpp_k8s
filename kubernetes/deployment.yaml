@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: llama-cpp-server
+  labels:
+    app: llama-cpp-server
+  namespace: llama
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-cpp-server
+  template:
+    metadata:
+      labels:
+        app: llama-cpp-server
+    spec:
+      containers:
+        - name: llama-cpp-python
+          image: gclef/llamacpp:0.2
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            requests:
+              memory: "4Gi"
+            limits:
+              memory: "5Gi"
+          ports:
+            - containerPort: 8000
+              name: llama-api-port
+              protocol: TCP
+          env:
+            - name: MODEL
+              value: "/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+            - name: N_GPU_LAYERS
+              value: "0"
+            - name: N_CTX
+              value: "1024"
+            - name: N_BATCH
+              value: "1024"
+          volumeMounts:
+            - name: models
+              mountPath: /models
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: llama-pvc
+---
