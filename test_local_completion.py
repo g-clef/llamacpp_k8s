@@ -1,14 +1,12 @@
 import json
 import requests
 
-URL = "http://localhost:8000/v1/completions"
-
-
+URL = "http://192.168.1.42:8000/v1/completions"
 
 
 def make_arguments():
     params = {
-        "prompt":  "\n\n### Question: Can you write a Python program to download data from a URL and save it to a file?\n\n###",
+        "prompt":  "\n\n### Question: You are a helpful python programming assitant. Can you write a Python program to download data from a URL and save it to a file?\n\n###",  # noqa
         "stop": ["###"],
         "no_penalize_nl": True,
         "temp": 0.7,
